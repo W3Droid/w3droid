@@ -1,0 +1,10 @@
+
+syntax = "proto2";
+
+package W3DroidAPIProtocol;
+
+enum ActionResult {
+  Success = 1;
+  NotSupported = 2;
+  Error = 3;
+}

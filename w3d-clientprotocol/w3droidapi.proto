@@ -1,0 +1,75 @@
+
+syntax = "proto2";
+
+package W3DroidAPIProtocol;
+
+import "error.proto";
+import "raw.proto";
+
+//
+// Request/Response
+//
+
+message Request {
+  oneof request {
+    // During Game
+    RequestObservation observation = 10;        // Snapshot of the current game state.
+    RequestAction action = 11;                  // Executes an action for a participant.
+
+    // Debugging
+    RequestPing ping = 19;                      // Network ping for testing connection.
+  }
+  optional uint32 id = 97;
+}
+
+message Response {
+  oneof response {
+    // During Game
+    ResponseObservation observation = 10;
+    ResponseAction action = 11;
+
+    // Debugging
+    ResponsePing ping = 19;
+  }
+  optional uint32 id = 97;
+  repeated string error = 98;                   // If command is missing, this will contain the error. Otherwise this will contain any warnings.
+}
+
+//-----------------------------------------------------------------------------
+message RequestObservation {
+}
+
+message ResponseObservation {
+  optional Observation observation = 3;
+}
+
+//-----------------------------------------------------------------------------
+message RequestAction {
+   repeated Action actions = 1;
+}
+
+message ResponseAction {
+   repeated ActionResult result = 1;
+}
+
+
+//-----------------------------------------------------------------------------
+message RequestPing {
+}
+
+message ResponsePing {
+  optional string game_version = 1;
+  optional string data_version = 2;
+  optional uint32 data_build = 3;
+  optional uint32 base_build = 4;
+}
+
+
+message Observation {
+  optional ObservationRaw raw_data = 5;                     // Populated if Raw interface is enabled.
+}
+
+message Action {
+  optional ActionRaw action_raw = 1;                        // Populated if Raw interface is enabled.
+}
+

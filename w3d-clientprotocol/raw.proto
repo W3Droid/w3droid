@@ -1,0 +1,52 @@
+
+syntax = "proto2";
+
+package W3DroidAPIProtocol;
+
+import "common.proto";
+
+//
+// Observation
+//
+
+message ObservationRaw {
+  repeated Unit units = 2;
+}
+
+message Unit {
+  optional uint64 tag = 3;                  // Unique identifier for a unit
+  optional uint32 unit_type = 4;
+  optional int32 owner = 5;
+
+  optional Point pos = 6;
+
+  optional float health = 14;
+  optional float health_max = 15;
+  optional float mana = 17;
+  optional float mana_max = 37;
+}
+
+//
+// Action
+//
+
+message ActionRaw {
+  oneof action {
+    ActionRawUnitCommand unit_command = 1;
+  }
+}
+
+enum AbilityEnum {
+  Move = 1;
+  Attack = 2;
+}
+
+
+message ActionRawUnitCommand {
+  optional AbilityEnum ability_id = 1;
+  oneof target {
+    Point2D target_world_space_pos = 2;
+    uint64 target_unit_tag = 3;
+  }
+  repeated uint64 unit_tags = 4;
+}
