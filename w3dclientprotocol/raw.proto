@@ -3,7 +3,7 @@ syntax = "proto2";
 
 package W3DroidAPIProtocol;
 
-import "common.proto";
+import "w3dclientprotocol/common.proto";
 
 //
 // Observation

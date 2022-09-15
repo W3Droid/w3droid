@@ -3,8 +3,8 @@ syntax = "proto2";
 
 package W3DroidAPIProtocol;
 
-import "error.proto";
-import "raw.proto";
+import "w3dclientprotocol/error.proto";
+import "w3dclientprotocol/raw.proto";
 
 //
 // Request/Response
